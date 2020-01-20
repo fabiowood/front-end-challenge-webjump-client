@@ -1,0 +1,92 @@
+.collection-item {
+  width: 15vw;
+  display: flex;
+  flex-direction: column;
+  height: 390px;
+  align-items: center;
+  margin-right: 0.5vw;
+
+  .image {
+    width: 100%;
+    height: 70%;
+    background-size: cover;
+    background-position: center;
+    padding: 2px 5px;
+    border: 0.5px solid rgb(192, 181, 181);
+  }
+
+  .custom-button {
+    width: 80%;
+    opacity: 0.7;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: RGB(0, 139, 139);
+    color: white;
+    border: RGB(0, 139, 139);
+    border-radius: 5px;
+    padding: 15px 20px;
+    cursor: pointer;
+  }
+
+  &:hover {
+    .image {
+      opacity: 0.8;
+    }
+
+    .custom-button {
+      opacity: 0.8;
+      background-color: RGB(191, 8, 28);
+      color: white;
+    }
+  }
+
+  .collection-footer {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+
+    .name {
+      width: 80%;
+      margin-bottom: 3px;
+      text-align: center;
+      color: grey;
+    }
+
+    .price {
+      width: 20%;
+      margin-bottom: 6px;
+      color: RGB(191, 8, 28);
+      text-align: center;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .collection-discount-price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 20%;
+      margin-right: 110px;
+      margin-top: 1px;
+
+      .no-discount-price {
+        color: RGB(211, 211, 211);
+        text-decoration: line-through RGB(211, 211, 211);
+        font-size: 13px;
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      .price {
+        color: RGB(191, 8, 28);
+        font-weight: bold;
+      }
+
+    }
+
+  }
+}

@@ -1,0 +1,33 @@
+.collection-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 80%;
+  margin-left: 30px;
+
+  .title {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 20px 75px 0;
+    color: RGB(191, 8, 28);
+  }
+
+  .collection-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+
+    & .collection-item {
+      margin-bottom: 40px;
+    }
+  }
+
+  .no-items-found-message {
+    font-size: 0.9rem;
+    font-weight: 600;
+    width: 90%;
+    text-align: center;
+  }
+
+}

@@ -1,0 +1,61 @@
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 20%;
+  height: 500px;
+  border: 0.5px solid grey;
+  color: RGB(0, 139, 139);
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px 0;
+
+  .side-bar-title {
+    color: RGB(191, 8, 28);
+    margin-left: 15%;
+    font-size: 25px;
+    font-weight: 700;
+    height: 5%;
+  }
+
+  .side-bar-categories {  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 40%;
+
+
+    .category-option {
+      font-size: 12px;
+      font-weight: normal;
+      margin: 5px 0 0 20px;
+      color: grey;
+    }
+
+  }
+
+  .side-bar-colors {
+    display: flex;
+    justify-content: flex-start;
+    height: 10%;  
+  }
+
+  .side-bar-other-filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 45%;
+
+    .filter-option {
+      font-size: 12px;
+      font-weight: normal;
+      margin: 0 0 0 20px;
+      color: grey;
+    }
+
+  }
+
+}
