@@ -3,18 +3,21 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 20%;
-  height: 500px;
+  width: 15%;
+  height: 550px;
   border: 0.5px solid grey;
   color: RGB(0, 139, 139);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  padding: 10px 0;
+  padding: 5px 0;
+  position: absolute;
+  margin-top: 40px;
+
 
   .side-bar-title {
     color: RGB(191, 8, 28);
-    margin-left: 15%;
-    font-size: 25px;
+    margin-left: 20%;
+    font-size: 22px;
     font-weight: 700;
     height: 5%;
   }
@@ -24,36 +27,65 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    height: 40%;
-
+    height: 30%;
 
     .category-option {
       font-size: 12px;
       font-weight: normal;
-      margin: 5px 0 0 20px;
+      margin: 5px 0 0 15px;
       color: grey;
+      cursor: pointer;
     }
 
   }
 
   .side-bar-colors {
     display: flex;
-    justify-content: flex-start;
-    height: 10%;  
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    height: 30%; 
+
+    .color-option {
+      font-size: 12px;
+      font-weight: normal;
+      margin: 10px 0 0 20px;
+      color: grey;
+      cursor: pointer;
+    }
+
+  }
+
+  .side-bar-gender {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    height: 30%;  
+
+    .gender-option {
+      font-size: 12px;
+      font-weight: normal;
+      margin: 0 0 0 20px;
+      color: grey;
+      cursor: pointer;
+    }
+
   }
 
   .side-bar-other-filters {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: flex-start;
-    height: 45%;
+    height: 35%;
 
     .filter-option {
       font-size: 12px;
       font-weight: normal;
       margin: 0 0 0 20px;
       color: grey;
+      cursor: pointer;
     }
 
   }

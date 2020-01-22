@@ -3,16 +3,17 @@ import './shop-page.styles.scss';
 
 // Component Dependencies
 
-import SideBarFilter from '../../components/sidebar-filter/sidebar-filter.component';
+// import SideBarFilter from '../../components/sidebar-filter/sidebar-filter.component';
 import CollectionPage from '../collection-page/collection-page.component';
 
-const ShopPage = ({ selectedCollection, searchBoxResults, displaySearchResults }) => {
+const ShopPage = ({ selectedCollection, searchBoxResults, displaySearchResults, multiFilterResults, displayMultiFilterResults }) => {
+
   return (
     <section className="shop-page">
-      <SideBarFilter selectedCollection={selectedCollection} searchBoxResults={searchBoxResults} displaySearchResults={displaySearchResults}/>
-      <CollectionPage selectedCollection={selectedCollection} searchBoxResults={searchBoxResults} displaySearchResults={displaySearchResults}/>
+      <CollectionPage selectedCollection={ selectedCollection } searchBoxResults={ searchBoxResults } displaySearchResults={ displaySearchResults } multiFilterResults={ multiFilterResults } displayMultiFilterResults={ displayMultiFilterResults }/>
     </section>
   )
+  
 }
 
 export default ShopPage;
