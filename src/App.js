@@ -10,8 +10,9 @@ import './App.css';
 import SignUpSignIn from './components/signup-signin/signup-signin.component';
 import SearchBox from './components/search-box/search-box.component';
 import Header from './components/header/header.component';
+import HomePage from './pages/home-page/home-page.component';
 import SideBarFilter from './components/sidebar-filter/sidebar-filter.component';
-// import HomePage from './pages/home-page/home-page.component';
+import SortBox from './components/sort-box/sort-box.component';
 import ShopPage from './pages/shop-page/shop-page.component';
 import Footer from './components/footer/footer.component';
 
@@ -36,8 +37,7 @@ class App extends Component {
       displayMultiFilterResults: false,
       filterItemsByColor: false,
       filterItemsByGender: false,
-      sideBarCollectionOptions: [],
-      filterSideBarWithSearchField: ''
+      // filterSideBarWithSearchField: ''
     }
   }
 
@@ -111,31 +111,27 @@ class App extends Component {
     this.setState({
       selectedCollection: this.state.collectionItems.shirts,
       filterItemsByColor:true,
-      sideBarCollectionOptions: ['Casual', 'Social']
+      selectedCollectionName: 'shirts',
     })
   }
 
   fetchSingleCollection = (collectionName) => {
     let filterByColor;
     let filterByGender;
-    let sideBarCollectionOptions = [];
     switch (collectionName) {
       case 'Camisetas':
       case 'Acessórios':
         collectionName = 'shirts';
         filterByColor = true;
-        sideBarCollectionOptions = ['Casual'];
         break;
       case 'Calças':
       case 'Roupas':
         collectionName = 'pants';
         filterByGender = true;
-        sideBarCollectionOptions = ['Caminhada', 'Casual', 'Social'];
         break;
       case 'Calçados':
         collectionName = 'shoes';
         filterByColor = true;
-        sideBarCollectionOptions = ['Corrida', 'Casual', 'Social'];
         break;
     }
     const { collectionItems } = this.state;
@@ -148,7 +144,6 @@ class App extends Component {
       displayMultiFilterResults: false,
       filterItemsByColor: filterByColor,
       filterItemsByGender: filterByGender,
-      sideBarCollectionOptions: sideBarCollectionOptions,
       selectedCollectionName: collectionName
     })
   }
@@ -204,7 +199,7 @@ class App extends Component {
     for (let key in multiFilterResults) {
       if (key === 'items') {
         multiFilterResults[key].forEach((item) => {
-          switch(selectedOption){
+          switch(selectedOption) {
             case 'Corrida':
               if (item.name.toLowerCase().includes(selectedOption.toLowerCase())) {
                 multiFilterResultsArray.push(item);
@@ -257,15 +252,82 @@ class App extends Component {
       this.setState({
         searchBoxResults: searchBoxResults,
         displaySearchResults: true,
-        filterSideBarWithSearchField: searchField
       })
     } else {
       this.setState({
         searchBoxResults: null,
         displaySearchResults: true,
-        filterSideBarWithSearchField: searchField
       })
     }
+  }
+
+  sortCollectionItems = (selectedOption) => {
+    const { selectedCollection, multiFilterResults, displaySearchResults, displayMultiFilterResults, searchBoxResults } = this.state;
+    console.log(displaySearchResults);
+    console.log(searchBoxResults);
+    let sortCollectionResults = null;
+    if (displayMultiFilterResults) {
+      sortCollectionResults = lodashClonedeep(multiFilterResults);
+    } else {
+      sortCollectionResults = lodashClonedeep(selectedCollection);
+    }
+    console.log(sortCollectionResults);
+    const sortByLowestPrices = (key) => {
+        sortCollectionResults[key].sort((a, b) => {
+          switch(a.specialPrice) {
+            case undefined:
+              if (b.specialPrice === undefined) {
+                return a.price - b.price;
+              } else {
+                return a.price - b.specialPrice;
+              }
+            default:
+              if (b.specialPrice === undefined) {
+                return a.specialPrice - b.price;
+              } else {
+                return a.specialPrice - b.specialPrice;
+              }
+            }
+         })
+        return sortCollectionResults;
+    }
+    const sortByHighestPrices = (key) => {
+      sortCollectionResults[key].sort((a, b) => {
+        switch(a.specialPrice) {
+          case undefined:
+            if (b.specialPrice === undefined) {
+              return b.price - a.price;
+            } else {
+              return b.specialPrice - a.price;
+            }
+          default:
+            if (b.specialPrice === undefined) {
+              return b.price - a.specialPrice;
+            } else {
+              return b.specialPrice - a.specialPrice;
+            }
+          }
+       })
+      return sortCollectionResults;
+    }
+
+    for (let key in sortCollectionResults) {
+      if (key === 'items') {
+        switch (selectedOption) {
+          case 'Menores Preços':
+            sortByLowestPrices(key);
+            break;
+          case 'Maiores Preços':
+            sortByHighestPrices(key);
+            break;
+        }
+      }
+    }
+    console.log(sortCollectionResults);
+    this.setState({
+      selectedCollection: sortCollectionResults,
+      displayMultiFilterResults: false
+    })
   }
 
   componentDidMount() {
@@ -275,15 +337,17 @@ class App extends Component {
   }
 
   render() {
-    const { collectionNames, selectedCollection, searchBoxResults, displaySearchResults, filterItemsByColor, filterItemsByGender, sideBarCollectionOptions, filterSideBarWithSearchField, multiFilterResults, displayMultiFilterResults } = this.state;
+    const { collectionNames, selectedCollection, searchBoxResults, displaySearchResults, filterItemsByColor, filterItemsByGender, selectedCollectionName, multiFilterResults, displayMultiFilterResults } = this.state;
     return (
       <section>
         <SignUpSignIn />
         <SearchBox searchCollectionItems={ this.searchCollectionItems }/>
         <Header collectionNames={ collectionNames } fetchSingleCollection={ this.fetchSingleCollection }/>
-        <SideBarFilter fetchSingleCollection={ this.fetchSingleCollection } filterItemsByColor={ filterItemsByColor } filterItemsByGender={ filterItemsByGender} selectColor={ this.fetchCollectionItemsByColor } selectGender={ this.fetchCollectionItemsByGender } selectTypeOption={this.fetchCollectionItemsByTypeOption} displaySearchResults={ displaySearchResults } searchField={ filterSideBarWithSearchField } sideBarCollectionOptions={ sideBarCollectionOptions }/>
+        <SideBarFilter fetchSingleCollection={ this.fetchSingleCollection } filterItemsByColor={ filterItemsByColor } filterItemsByGender={ filterItemsByGender} selectColor={ this.fetchCollectionItemsByColor } selectGender={ this.fetchCollectionItemsByGender } selectTypeOption={ this.fetchCollectionItemsByTypeOption } selectedCollectionName={ selectedCollectionName }/>
+        <SortBox sortCollectionItems={ this.sortCollectionItems }/>
         <Switch>
-          <Route exact path='/' render={() => <ShopPage selectedCollection={ selectedCollection } searchBoxResults={ searchBoxResults } displaySearchResults={ displaySearchResults } multiFilterResults={ multiFilterResults } displayMultiFilterResults={ displayMultiFilterResults }/>} />
+          <Route exact path='/' component={ HomePage }/>
+          <Route exact path='/shop' render={() => <ShopPage selectedCollection={ selectedCollection } searchBoxResults={ searchBoxResults } displaySearchResults={ displaySearchResults } multiFilterResults={ multiFilterResults } displayMultiFilterResults={ displayMultiFilterResults }/>} />
         </Switch>
         <Footer />
       </section>

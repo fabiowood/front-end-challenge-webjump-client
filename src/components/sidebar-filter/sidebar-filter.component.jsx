@@ -9,13 +9,36 @@ class SideBarFilter extends Component {
       categoryOptions: ['Roupas', 'Calçados', 'Acessórios'],
       colorFilterOptions: ["Amarela", "Azul", "Preta"],
       genderFilterOptions: ["Masculina", "Feminina"],
-    }
-    // console.log(this.props.searchField);
+      chooseSideBarFilterOptions: () => {
+        const { selectTypeOption, selectedCollectionName } = this.props;
+        let sideBarOptions = [];
+        switch (selectedCollectionName) {
+          case 'shirts':
+            sideBarOptions = ['Casual'];
+            break;
+          case 'pants':
+            sideBarOptions = ['Caminhada', 'Casual', 'Social'];
+            break;
+          case 'shoes':
+            sideBarOptions = ['Corrida', 'Casual', 'Social'];
+            break;
+        }
+        return (
+            sideBarOptions.map((option) => {
+              return (
+                <li key={option} className='filter-option' onClick={() => selectTypeOption(option)}>{option}</li>
+              )
+            })
+          )
+        }
+     }
   }
 
   render() {
-    const { fetchSingleCollection, filterItemsByColor, filterItemsByGender, sideBarCollectionOptions, selectGender, selectColor, selectTypeOption } = this.props;
-    const { categoryOptions, colorFilterOptions, genderFilterOptions } = this.state;
+
+    const { fetchSingleCollection, filterItemsByColor, filterItemsByGender, selectGender, selectColor } = this.props;
+    const { categoryOptions, colorFilterOptions, genderFilterOptions, chooseSideBarFilterOptions } = this.state;
+
     return(
       <Fragment>
         <section className='side-bar'>
@@ -46,7 +69,7 @@ class SideBarFilter extends Component {
           }
           <ul className='side-bar-other-filters'>TIPO
             {
-              sideBarCollectionOptions.map((option) => <li key={option} className='filter-option' onClick={() => selectTypeOption(option)}>{option}</li>)
+              chooseSideBarFilterOptions()
             }
           </ul>
         </section>
