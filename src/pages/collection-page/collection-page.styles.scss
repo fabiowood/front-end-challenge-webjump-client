@@ -14,9 +14,21 @@
   }
 
   .collection-items {
+    
+    &.grid {
+    margin-top: 35px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
+    }
+
+    &.list {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    }
 
     & .collection-item {
       margin-bottom: 40px;

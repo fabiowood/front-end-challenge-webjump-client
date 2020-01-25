@@ -6,7 +6,8 @@ class SideBarFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categoryOptions: ['Roupas', 'Calçados', 'Acessórios'],
+      toggleClothesOptions: false,
+      collectionOptions: ['Roupas', 'Calçados', 'Acessórios'],
       colorFilterOptions: ["Amarela", "Azul", "Preta"],
       genderFilterOptions: ["Masculina", "Feminina"],
       chooseSideBarFilterOptions: () => {
@@ -34,10 +35,16 @@ class SideBarFilter extends Component {
      }
   }
 
+  toggleCollectionOptions = () => {
+    this.setState({
+      toggleClothesOptions: !this.state.toggleClothesOptions
+    })
+  }
+
   render() {
 
     const { fetchSingleCollection, filterItemsByColor, filterItemsByGender, selectGender, selectColor } = this.props;
-    const { categoryOptions, colorFilterOptions, genderFilterOptions, chooseSideBarFilterOptions } = this.state;
+    const { collectionOptions, colorFilterOptions, genderFilterOptions, chooseSideBarFilterOptions, toggleClothesOptions } = this.state;
 
     return(
       <Fragment>
@@ -45,7 +52,22 @@ class SideBarFilter extends Component {
           <h2 className='side-bar-title'>FILTRE POR</h2>
           <ul className='side-bar-categories'>CATEGORIAS
             {
-              categoryOptions.map((category) => <li key={category} className='category-option' onClick={() => fetchSingleCollection(category)}
+              collectionOptions.map((category) => category === 'Roupas' ? 
+              <Fragment>
+                <li key={category} className='category-option' onClick={() => this.toggleCollectionOptions()}>{category}
+                {
+                  toggleClothesOptions ?
+                    <Fragment>
+                    <li className='clothes-option' onClick={() => fetchSingleCollection('Camisetas')}>Camisetas</li> 
+                    <li className='clothes-option' onClick={() => fetchSingleCollection('Calças')}>Calças</li>
+                    </Fragment>
+                  :
+                    null
+                }
+                </li>
+              </Fragment>
+            : 
+            <li key={category} className='category-option' onClick={() => fetchSingleCollection(category)}
             >{category}</li>)
             }
           </ul>

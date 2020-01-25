@@ -1,10 +1,22 @@
 .collection-item {
-  width: 15vw;
   display: flex;
-  flex-direction: column;
-  height: 390px;
-  align-items: center;
-  margin-right: 0.5vw;
+
+  &.grid {
+    width: 15vw;
+    margin-right: 0.5vw;
+    height: 390px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &.list {
+    width: 40vw;
+    height: 350px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.5px solid rgb(190, 178, 178);
+  }
 
   .image {
     width: 100%;
@@ -12,7 +24,7 @@
     background-size: cover;
     background-position: center;
     padding: 2px 5px;
-    border: 0.5px solid rgb(192, 181, 181);
+    border: 0.5px solid rgb(190, 178, 178);
   }
 
   .custom-button {

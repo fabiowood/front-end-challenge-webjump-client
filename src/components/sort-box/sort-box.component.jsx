@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import './sort-box.styles.scss';
-import { ReactComponent as ViewModule } from "../../assets/view_module-24px.svg";
+import { ReactComponent as ViewGrid } from "../../assets/view_module-24px.svg";
 import { ReactComponent as ViewList } from "../../assets/view_list-24px.svg";
 
 class SortBox extends Component {
   constructor(props){
     super(props);
     this.state = {
-      selectedOption: ''
+      selectedOption: '',
     }
   }
 
@@ -20,12 +20,13 @@ class SortBox extends Component {
   }
 
   render() {
+    const { changeCollectionItemsDisplay } = this.props;
     return(
      <Fragment>
       <section className='sort-box'>
         <div className='sort-buttons-container'>
-          <ViewModule className='sort-button' />
-          <ViewList className='sort-button' />
+          <ViewGrid className='sort-button' onClick={() => changeCollectionItemsDisplay('grid')}/>
+          <ViewList className='sort-button' onClick={() => changeCollectionItemsDisplay('list')}/>
         </div>
         <div className='form-container'>
           <span for="multi" className='label'>ORDENAR POR</span>

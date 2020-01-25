@@ -5,7 +5,7 @@ import './collection-page.styles.scss';
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
 
-const CollectionPage = ({ selectedCollection, searchBoxResults, displaySearchResults, multiFilterResults, displayMultiFilterResults }) => {
+const CollectionPage = ({ selectedCollection, searchBoxResults, displaySearchResults, multiFilterResults, displayMultiFilterResults, collectionItemsDisplay }) => {
 
   let collectionName = '';
   let collectionItems = [];
@@ -50,19 +50,19 @@ const CollectionPage = ({ selectedCollection, searchBoxResults, displaySearchRes
 
   findSelectedCollectionItems();
   findMultiFilterCollectionItems();
- 
+
   return (
     <section className='collection-page'>
       {
         displaySearchResults ?
 
-          searchBoxResults ?
+          searchBoxResults !== null ?
         
           <Fragment>
             <h2 className='title'>Resultados da sua Busca:</h2>
-            <div className='collection-items'>
+            <div className={`collection-items ${collectionItemsDisplay === 'list' ? 'list' : 'grid'}`}>
                   {
-                    searchBoxResults.map((item) => <CollectionItem key={item.id} item={item}/>)
+                    searchBoxResults.map((item) => <CollectionItem key={item.id} item={item} collectionItemsDisplay={collectionItemsDisplay}/>)
                   }
             </div>
           </Fragment>
@@ -82,9 +82,9 @@ const CollectionPage = ({ selectedCollection, searchBoxResults, displaySearchRes
 
           <Fragment>
             <h2 className='title'>Resultados da sua Busca:</h2>
-            <div className='collection-items'>
+            <div className={`collection-items ${collectionItemsDisplay === 'list' ? 'list' : 'grid'}`}>
                 {
-                  multiFilterItems.map((item) => <CollectionItem key={item.id} item={item}/>)
+                  multiFilterItems.map((item) => <CollectionItem key={item.id} item={item} collectionItemsDisplay={collectionItemsDisplay}/>)
                 }
             </div>
           </Fragment>
@@ -99,11 +99,12 @@ const CollectionPage = ({ selectedCollection, searchBoxResults, displaySearchRes
         :
 
         collectionItems ?
+        
           <Fragment>
             <h2 className='title'>{ collectionName }</h2>
-            <div className='collection-items'>
+            <div className={`collection-items ${collectionItemsDisplay === 'list' ? 'list' : 'grid'}`}>
                 {
-                  collectionItems.map((item) => <CollectionItem key={item.id} item={item}/>)
+                  collectionItems.map((item) => <CollectionItem key={item.id} item={item} collectionItemsDisplay={collectionItemsDisplay}/>)
                 }
             </div>
           </Fragment>

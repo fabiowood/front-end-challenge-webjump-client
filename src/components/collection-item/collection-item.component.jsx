@@ -2,12 +2,12 @@ import React from "react";
 // import { addItem } from '../../redux/cart/cart.actions';
 import "./collection-item.styles.scss";
 
-const CollectionItem = ({ item }) => {
+const CollectionItem = ({ item, collectionItemsDisplay }) => {
   
   const { name, image, price, specialPrice } = item;
 
   return (
-    <article className="collection-item">
+    <article className={`collection-item ${collectionItemsDisplay === 'list' ? 'list' : 'grid'}`}>
         <div
           className="image"
           style={{ backgroundImage: `url(${image})` }}

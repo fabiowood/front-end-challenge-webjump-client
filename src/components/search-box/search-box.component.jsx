@@ -19,8 +19,40 @@ handleChange = (event) => {
 handleSubmit = (event) => {
   event.preventDefault();
   const { searchField } = this.state;
-  const { searchCollectionItems } = this.props;
-  searchCollectionItems(searchField);
+  const { searchCollectionItems, allCollections } = this.props;
+  const allCollectionItems = allCollections.map(collection => collection.items);
+  let searchBoxResults = {};
+  allCollectionItems.forEach((collection) => {
+    let filteredItem = collection.filter(item => item.name.toLowerCase().includes(searchField.toLowerCase()));
+    if (filteredItem.length !== 0) {
+      searchBoxResults = filteredItem;
+    }
+  });
+  let searchCollectionName;
+  let filterByColor;
+  let filterByGender;
+  console.log(searchBoxResults);
+  console.log(searchField);
+  if (searchBoxResults.length !== 0 && searchField.length !== 0) {
+    searchBoxResults.forEach((searchResult) => {
+      if (searchResult.name.toLowerCase().includes('camiseta')) {
+        searchCollectionName = 'shirts';
+        filterByColor = true;
+      } else if (searchResult.name.toLowerCase().includes('calça')) {
+        searchCollectionName = 'pants';
+        filterByGender = true;
+      } else if (searchResult.name.toLowerCase().includes('tênis')) {
+        searchCollectionName = 'shoes';
+        filterByColor = true;
+      }
+    })
+  } else {
+    searchBoxResults = null;
+    searchCollectionName = null;
+    filterByColor = false;
+    filterByGender = false;
+  }
+  searchCollectionItems(searchBoxResults, searchField, searchCollectionName, filterByColor, filterByGender);
   this.setState({
     searchField: ''
   })

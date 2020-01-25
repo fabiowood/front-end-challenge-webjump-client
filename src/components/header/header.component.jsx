@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import './header.styles.scss';
 
 const Header = ({ collectionNames, fetchSingleCollection }) => {
@@ -15,7 +14,7 @@ const Header = ({ collectionNames, fetchSingleCollection }) => {
               { collection.name.toUpperCase() }
               </div>)
           }
-          <div className='nav-option'>CONTATO</div>
+          <Link to='/' className='nav-option'>CONTATO</Link>
         </nav>
       </header>
     </section>

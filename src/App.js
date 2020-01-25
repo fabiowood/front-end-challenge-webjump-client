@@ -7,10 +7,12 @@ import './App.css';
 
 // Component Dependencies
 
-import SignUpSignIn from './components/signup-signin/signup-signin.component';
+// import HomePage from './pages/home-page/home-page.component';
+import SignUpSignInDisplay from './components/signup-signin-display/signup-signin-display.component';
+import SignUpSignInPage from './pages/signup-signin/signup-signin.component';
 import SearchBox from './components/search-box/search-box.component';
 import Header from './components/header/header.component';
-import HomePage from './pages/home-page/home-page.component';
+import NavigationPath from './components/navigation-path/navigation-path.component';
 import SideBarFilter from './components/sidebar-filter/sidebar-filter.component';
 import SortBox from './components/sort-box/sort-box.component';
 import ShopPage from './pages/shop-page/shop-page.component';
@@ -37,7 +39,7 @@ class App extends Component {
       displayMultiFilterResults: false,
       filterItemsByColor: false,
       filterItemsByGender: false,
-      // filterSideBarWithSearchField: ''
+      collectionItemsDisplay: 'grid'
     }
   }
 
@@ -125,14 +127,13 @@ class App extends Component {
         filterByColor = true;
         break;
       case 'Calças':
-      case 'Roupas':
         collectionName = 'pants';
         filterByGender = true;
         break;
       case 'Calçados':
         collectionName = 'shoes';
         filterByColor = true;
-        break;
+          break;
     }
     const { collectionItems } = this.state;
     const findSelectedCollection = Object.keys(collectionItems).filter(key => key.localeCompare(collectionName) === 0);
@@ -149,9 +150,16 @@ class App extends Component {
   }
 
   fetchCollectionItemsByGender = (selectedGender) => {
-    const { selectedCollection } = this.state;
-    const multiFilterResults = lodashClonedeep(selectedCollection);
-    const multiFilterResultsArray = [];
+    const { selectedCollection, displaySearchResults, searchBoxResults } = this.state;
+    let searchBoxCopyArray = [];
+    let multiFilterResults = {};
+    let multiFilterResultsArray = [];
+    if (displaySearchResults) {
+      searchBoxCopyArray = JSON.parse(JSON.stringify(searchBoxResults));
+      multiFilterResults.items = searchBoxCopyArray;
+    } else {
+      multiFilterResults = lodashClonedeep(selectedCollection);
+    }
     for (let key in multiFilterResults) {
       if (key === 'items') {
         multiFilterResults[key].forEach((item) => {
@@ -167,13 +175,21 @@ class App extends Component {
     this.setState({
       multiFilterResults: multiFilterResults,
       displayMultiFilterResults: true,
+      displaySearchResults: false
     })
   }
 
   fetchCollectionItemsByColor = (selectedColor) => {
-    const { selectedCollection } = this.state;
-    const multiFilterResults = lodashClonedeep(selectedCollection);
-    const multiFilterResultsArray = [];
+    const { selectedCollection, displaySearchResults, searchBoxResults } = this.state;
+    let searchBoxCopyArray = [];
+    let multiFilterResults = {};
+    let multiFilterResultsArray = [];
+    if (displaySearchResults) {
+      searchBoxCopyArray = JSON.parse(JSON.stringify(searchBoxResults));
+      multiFilterResults.items = searchBoxCopyArray;
+    } else {
+      multiFilterResults = lodashClonedeep(selectedCollection);
+    }
     for (let key in multiFilterResults) {
       if (key === 'items') {
         multiFilterResults[key].forEach((item) => {
@@ -189,13 +205,21 @@ class App extends Component {
     this.setState({
       multiFilterResults: multiFilterResults,
       displayMultiFilterResults: true,
+      displaySearchResults: false
     })
   }
 
   fetchCollectionItemsByTypeOption = (selectedOption) => {
-    const { selectedCollection } = this.state;
-    const multiFilterResults = lodashClonedeep(selectedCollection);
-    const multiFilterResultsArray = [];
+    const { selectedCollection, displaySearchResults, searchBoxResults } = this.state;
+    let searchBoxCopyArray = [];
+    let multiFilterResults = {};
+    let multiFilterResultsArray = [];
+    if (displaySearchResults) {
+      searchBoxCopyArray = JSON.parse(JSON.stringify(searchBoxResults));
+      multiFilterResults.items = searchBoxCopyArray;
+    } else {
+      multiFilterResults = lodashClonedeep(selectedCollection);
+    }
     for (let key in multiFilterResults) {
       if (key === 'items') {
         multiFilterResults[key].forEach((item) => {
@@ -217,7 +241,7 @@ class App extends Component {
               break;
             case 'Casual':
               if (item.name.toLowerCase().includes(selectedOption.toLowerCase()) || 
-               (
+                (
                 !item.name.toLowerCase().includes('Corrida'.toLowerCase()) && !item.name.toLowerCase().includes('Caminhada'.toLowerCase()) && !item.name.toLowerCase().includes('Social'.toLowerCase()) && 
                 !item.name.toLowerCase().includes('Couro'.toLowerCase()))
                 ) {
@@ -230,48 +254,42 @@ class App extends Component {
         break;
       }
     }
-    multiFilterResults.items = multiFilterResultsArray;
-    this.setState({
+    
+  multiFilterResults.items = multiFilterResultsArray;
+  this.setState({
       multiFilterResults: multiFilterResults,
       displayMultiFilterResults: true,
+      displaySearchResults: false
     })
   }
 
-  searchCollectionItems = (searchField) => {
-    const { allCollections } = this.state;
-    const allCollectionItems = allCollections.map(collection => collection.items);
-    let searchBoxResults = {};
-    allCollectionItems.forEach((collection) => {
-        let filteredItem = collection.filter(item => item.name.toLowerCase().includes(searchField.toLowerCase()));
-        if (filteredItem.length !== 0) {
-          searchBoxResults = filteredItem;
-        }
-      });
-    ;
-    if (searchBoxResults.length > 0 && searchField.length > 0) {
+  searchCollectionItems = (searchBoxResults, searchField, searchCollectionName, filterByColor, filterByGender) => {
+    console.log(searchBoxResults);
+    console.log(searchField);
       this.setState({
         searchBoxResults: searchBoxResults,
         displaySearchResults: true,
+        displayMultiFilterResults: false,
+        selectedCollectionName: searchCollectionName,
+        filterItemsByColor: filterByColor,
+        filterItemsByGender: filterByGender
       })
-    } else {
-      this.setState({
-        searchBoxResults: null,
-        displaySearchResults: true,
-      })
-    }
   }
 
   sortCollectionItems = (selectedOption) => {
     const { selectedCollection, multiFilterResults, displaySearchResults, displayMultiFilterResults, searchBoxResults } = this.state;
-    console.log(displaySearchResults);
-    console.log(searchBoxResults);
-    let sortCollectionResults = null;
-    if (displayMultiFilterResults) {
+    
+    let searchBoxCopyArray = [];
+    let sortCollectionResults = {};
+    if (displaySearchResults) {
+      searchBoxCopyArray = JSON.parse(JSON.stringify(searchBoxResults));
+      sortCollectionResults.items = searchBoxCopyArray;
+    } else if (displayMultiFilterResults) {
       sortCollectionResults = lodashClonedeep(multiFilterResults);
     } else {
       sortCollectionResults = lodashClonedeep(selectedCollection);
     }
-    console.log(sortCollectionResults);
+
     const sortByLowestPrices = (key) => {
         sortCollectionResults[key].sort((a, b) => {
           switch(a.specialPrice) {
@@ -323,10 +341,17 @@ class App extends Component {
         }
       }
     }
-    console.log(sortCollectionResults);
+
     this.setState({
       selectedCollection: sortCollectionResults,
-      displayMultiFilterResults: false
+      displayMultiFilterResults: false,
+      displaySearchResults: false
+    })
+  }
+
+  changeCollectionItemsDisplay = (selectedOption) => {
+    this.setState({
+      collectionItemsDisplay: selectedOption
     })
   }
 
@@ -337,18 +362,26 @@ class App extends Component {
   }
 
   render() {
-    const { collectionNames, selectedCollection, searchBoxResults, displaySearchResults, filterItemsByColor, filterItemsByGender, selectedCollectionName, multiFilterResults, displayMultiFilterResults } = this.state;
+    const { collectionNames, selectedCollection, searchBoxResults, displaySearchResults, filterItemsByColor, filterItemsByGender, selectedCollectionName, multiFilterResults, displayMultiFilterResults, collectionItemsDisplay, allCollections } = this.state;
     return (
       <section>
-        <SignUpSignIn />
-        <SearchBox searchCollectionItems={ this.searchCollectionItems }/>
-        <Header collectionNames={ collectionNames } fetchSingleCollection={ this.fetchSingleCollection }/>
-        <SideBarFilter fetchSingleCollection={ this.fetchSingleCollection } filterItemsByColor={ filterItemsByColor } filterItemsByGender={ filterItemsByGender} selectColor={ this.fetchCollectionItemsByColor } selectGender={ this.fetchCollectionItemsByGender } selectTypeOption={ this.fetchCollectionItemsByTypeOption } selectedCollectionName={ selectedCollectionName }/>
-        <SortBox sortCollectionItems={ this.sortCollectionItems }/>
+        <SignUpSignInDisplay />
+
+        <SearchBox searchCollectionItems={this.searchCollectionItems} allCollections={allCollections}/>
+
+        <Header collectionNames={collectionNames} fetchSingleCollection={this.fetchSingleCollection}/>
+
+        <NavigationPath selectedCollectionName={selectedCollectionName}/>
+
+        <SideBarFilter fetchSingleCollection={this.fetchSingleCollection} filterItemsByColor={filterItemsByColor} filterItemsByGender={filterItemsByGender} selectColor={this.fetchCollectionItemsByColor} selectGender={this.fetchCollectionItemsByGender} selectTypeOption={this.fetchCollectionItemsByTypeOption} selectedCollectionName={selectedCollectionName}/>
+
+        <SortBox sortCollectionItems={this.sortCollectionItems} changeCollectionItemsDisplay={this.changeCollectionItemsDisplay}/>
+
         <Switch>
-          <Route exact path='/' component={ HomePage }/>
-          <Route exact path='/shop' render={() => <ShopPage selectedCollection={ selectedCollection } searchBoxResults={ searchBoxResults } displaySearchResults={ displaySearchResults } multiFilterResults={ multiFilterResults } displayMultiFilterResults={ displayMultiFilterResults }/>} />
+          <Route exact path='/' render={() => <ShopPage selectedCollection={selectedCollection} searchBoxResults={searchBoxResults} displaySearchResults={displaySearchResults} multiFilterResults={multiFilterResults} displayMultiFilterResults={displayMultiFilterResults} collectionItemsDisplay={collectionItemsDisplay}/>}/>
+          <Route path='/sign-in' component={SignUpSignInPage}/>
         </Switch>
+
         <Footer />
       </section>
     );
@@ -356,25 +389,3 @@ class App extends Component {
 }
 
 export default App;
-
-    // let collectionName = null;
-  
-    // const findCollectionName = () => {
-    //   for(let counter = 0; counter <= searchBoxResults.length; counter += 1) {
-    //     console.log(searchBoxResults[counter]);
-    //     if (searchBoxResults[counter].name.toLowerCase().includes('tênis')) {
-    //       collectionName = "Calçados";
-    //       break;
-    //     } else if(searchBoxResults[counter].name.toLowerCase().includes('camiseta')) {
-    //       collectionName = "Camisetas";
-    //       break;
-    //     } else if(searchBoxResults[counter].name.toLowerCase().includes('calça')) {
-    //       collectionName = "Calças";
-    //       break;
-    //     }
-    //   }
-    //   console.log(collectionName);
-    //   return collectionName;
-    // }
-
-    // findCollectionName()

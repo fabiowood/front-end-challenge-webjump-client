@@ -4,15 +4,14 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 15%;
-  height: 550px;
+  height: 520px;
   border: 1.1px solid rgb(214, 200, 200);
   color: RGB(0, 139, 139);
   font-size: 16px;
   font-weight: 700;
   padding: 5px 0;
   position: absolute;
-  margin-top: 40px;
-
+  margin-top: 20px;
 
   .side-bar-title {
     color: RGB(191, 8, 28);
@@ -25,16 +24,34 @@
   .side-bar-categories {  
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: flex-start;
-    height: 30%;
+    height: 35%;
 
     .category-option {
       font-size: 12px;
       font-weight: normal;
-      margin: 5px 0 0 15px;
+      margin: 9px 0 1px 15px;
       color: grey;
       cursor: pointer;
+      
+      .clothes-option {
+        font-size: 11px;
+        font-weight: 600;
+        color: grey;
+        margin: 6px 0 0 15px;
+
+        &:hover{
+          color: RGB(0, 139, 139);
+          font-size: 11px;
+        }
+      }
+      
+      &:hover{
+        color: RGB(0, 139, 139);
+        font-weight: 600;
+        font-size: 11px;
+      }
     }
 
   }
@@ -44,14 +61,21 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-start;
-    height: 30%; 
+    height: 35%; 
 
     .color-option {
       font-size: 12px;
       font-weight: normal;
-      margin: 10px 0 0 20px;
+      margin: 4px 0 0 15px;
       color: grey;
       cursor: pointer;
+
+      &:hover{
+        color: RGB(0, 139, 139);
+        font-weight: 600;
+        font-size: 11px;
+      }
+
     }
 
   }
@@ -61,14 +85,21 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-start;
-    height: 30%;  
+    height: 35%;  
 
     .gender-option {
       font-size: 12px;
       font-weight: normal;
-      margin: 0 0 0 20px;
+      margin: 3px 0 0 15px;
       color: grey;
       cursor: pointer;
+
+      &:hover{
+        color: RGB(0, 139, 139);
+        font-weight: 600;
+        font-size: 11px;
+      }
+
     }
 
   }
@@ -78,7 +109,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-start;
-    height: 35%;
+    height: 30%;
 
     .filter-option {
       font-size: 12px;
@@ -86,6 +117,13 @@
       margin: 0 0 0 20px;
       color: grey;
       cursor: pointer;
+
+      &:hover{
+        color: RGB(0, 139, 139);
+        font-weight: 600;
+        font-size: 11px;
+      }
+
     }
 
   }
