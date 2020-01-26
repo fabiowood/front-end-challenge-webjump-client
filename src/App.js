@@ -3,19 +3,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
+// import { connect } from 'react-redux';
+// import { fetchCollectionNames } from './redux/shop/shop.actions';
 import './App.css';
 
 // Component Dependencies
 
 // import HomePage from './pages/home-page/home-page.component';
 import SignUpSignInDisplay from './components/signup-signin-display/signup-signin-display.component';
-import SignUpSignInPage from './pages/signup-signin/signup-signin.component';
 import SearchBox from './components/search-box/search-box.component';
 import Header from './components/header/header.component';
+import SignUpSignInPage from './pages/signup-signin/signup-signin.component';
 import NavigationPath from './components/navigation-path/navigation-path.component';
+import ShopPage from './pages/shop-page/shop-page.component';
 import SideBarFilter from './components/sidebar-filter/sidebar-filter.component';
 import SortBox from './components/sort-box/sort-box.component';
-import ShopPage from './pages/shop-page/shop-page.component';
+import CheckOutPage from './pages/checkout-page/checkout-page.component';
 import Footer from './components/footer/footer.component';
 
 const lodashClonedeep = require("lodash.clonedeep");
@@ -193,9 +196,11 @@ class App extends Component {
     for (let key in multiFilterResults) {
       if (key === 'items') {
         multiFilterResults[key].forEach((item) => {
-          if (selectedColor.trim().localeCompare(item.filter[0].color.trim()) === 0) {
-            multiFilterResultsArray.push(item);
-          }
+          selectedColor.forEach((colorOption) => {
+            if (colorOption.trim().localeCompare(item.filter[0].color.trim()) === 0) {
+              multiFilterResultsArray.push(item);
+            }
+          })
         })
         delete multiFilterResults[key];
         break;
@@ -281,6 +286,7 @@ class App extends Component {
     
     let searchBoxCopyArray = [];
     let sortCollectionResults = {};
+
     if (displaySearchResults) {
       searchBoxCopyArray = JSON.parse(JSON.stringify(searchBoxResults));
       sortCollectionResults.items = searchBoxCopyArray;
@@ -380,6 +386,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' render={() => <ShopPage selectedCollection={selectedCollection} searchBoxResults={searchBoxResults} displaySearchResults={displaySearchResults} multiFilterResults={multiFilterResults} displayMultiFilterResults={displayMultiFilterResults} collectionItemsDisplay={collectionItemsDisplay}/>}/>
           <Route path='/sign-in' component={SignUpSignInPage}/>
+          <Route path='/checkout' component={CheckOutPage} />
         </Switch>
 
         <Footer />
@@ -387,5 +394,9 @@ class App extends Component {
     );
   }
 }
+
+// const mapDispatchToProps = dispatch => ({
+//   fetchCollectionNames: () => dispatch(fetchCollectionNames())
+// });
 
 export default App;

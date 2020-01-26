@@ -8,9 +8,62 @@ class SideBarFilter extends Component {
     this.state = {
       toggleClothesOptions: false,
       collectionOptions: ['Roupas', 'Calçados', 'Acessórios'],
-      colorFilterOptions: ["Amarela", "Azul", "Preta"],
+      colorFilterOptions: [["Amarela", "Laranja"], ["Bege", "Rosa"], ["Azul", "Cinza", "Preta"]],
       genderFilterOptions: ["Masculina", "Feminina"],
-      chooseSideBarFilterOptions: () => {
+      displayCollectionFilterOptions: () => {
+        const { fetchSingleCollection } = this.props;
+        const { collectionOptions, toggleClothesOptions } = this.state;
+        return (
+            collectionOptions.map((category) => category === 'Roupas' ? 
+              <Fragment>
+                <li key={category} className='category-option' onClick={() => this.toggleCollectionOptions()}>{category}
+                {
+                  toggleClothesOptions ?
+                    <Fragment>
+                    <li className='clothes-option' onClick={() => fetchSingleCollection('Camisetas')}>Camisetas</li> 
+                    <li className='clothes-option' onClick={() => fetchSingleCollection('Calças')}>Calças</li>
+                    </Fragment>
+                  :
+                    null
+                }
+                </li>
+              </Fragment>
+            : 
+              <li key={category} className='category-option' onClick={() => fetchSingleCollection(category)}
+              >{category}</li>)
+        )
+      },
+      displayColorFilterOptions: () => {
+        const { selectColor } = this.props;
+        const { colorFilterOptions } = this.state;
+        return (
+          colorFilterOptions.map((color, index) => {
+          let colorOptionsToDisplay;
+          switch (index) {
+            case 0:
+              colorOptionsToDisplay = <li key={color} className={`color-option ${'orange-block'}`} onClick={() => selectColor(color)}>{color}</li>
+              break;
+            case 1:
+              colorOptionsToDisplay = <li key={color} className={`color-option ${'pink-block'}`} onClick={() => selectColor(color)}>{color}</li>
+              break;
+            case 2:
+              colorOptionsToDisplay = <li key={color} className={`color-option ${'dark-block'}`} onClick={() => selectColor(color)}>{color}</li>
+              break;
+            }
+          return (
+            colorOptionsToDisplay
+           )
+         })
+        )
+      },
+      displayGenderFilterOptions: () => {
+        const { selectGender } = this.props;
+        const { genderFilterOptions } = this.state;
+        return (
+          genderFilterOptions.map((gender) => <li key={gender} className='gender-option' onClick={() => selectGender(gender)}>{gender}</li>)
+        )
+      },
+      displaySideBarFilterOptions: () => {
         const { selectTypeOption, selectedCollectionName } = this.props;
         let sideBarOptions = [];
         switch (selectedCollectionName) {
@@ -30,9 +83,9 @@ class SideBarFilter extends Component {
                 <li key={option} className='filter-option' onClick={() => selectTypeOption(option)}>{option}</li>
               )
             })
-          )
-        }
-     }
+        )
+      }
+    }
   }
 
   toggleCollectionOptions = () => {
@@ -43,8 +96,8 @@ class SideBarFilter extends Component {
 
   render() {
 
-    const { fetchSingleCollection, filterItemsByColor, filterItemsByGender, selectGender, selectColor } = this.props;
-    const { collectionOptions, colorFilterOptions, genderFilterOptions, chooseSideBarFilterOptions, toggleClothesOptions } = this.state;
+    const { filterItemsByColor, filterItemsByGender} = this.props;
+    const { displayCollectionFilterOptions, displaySideBarFilterOptions, displayColorFilterOptions, displayGenderFilterOptions } = this.state;
 
     return(
       <Fragment>
@@ -52,32 +105,18 @@ class SideBarFilter extends Component {
           <h2 className='side-bar-title'>FILTRE POR</h2>
           <ul className='side-bar-categories'>CATEGORIAS
             {
-              collectionOptions.map((category) => category === 'Roupas' ? 
-              <Fragment>
-                <li key={category} className='category-option' onClick={() => this.toggleCollectionOptions()}>{category}
-                {
-                  toggleClothesOptions ?
-                    <Fragment>
-                    <li className='clothes-option' onClick={() => fetchSingleCollection('Camisetas')}>Camisetas</li> 
-                    <li className='clothes-option' onClick={() => fetchSingleCollection('Calças')}>Calças</li>
-                    </Fragment>
-                  :
-                    null
-                }
-                </li>
-              </Fragment>
-            : 
-            <li key={category} className='category-option' onClick={() => fetchSingleCollection(category)}
-            >{category}</li>)
+              displayCollectionFilterOptions()
             }
           </ul>
 
           {
             filterItemsByColor && 
             <ul className='side-bar-colors'>CORES
-              {
-                colorFilterOptions.map((color) => <li key={color} className='color-option' onClick={() => selectColor(color)}>{color}</li>)
-              }
+              <div className='color-container'>
+                {
+                  displayColorFilterOptions()
+                }
+              </div>
             </ul>
           }
 
@@ -85,13 +124,13 @@ class SideBarFilter extends Component {
             filterItemsByGender && 
             <ul className='side-bar-gender'>GÊNERO
               {
-                genderFilterOptions.map((gender) => <li key={gender} className='gender-option' onClick={() => selectGender(gender)}>{gender}</li>)
+                displayGenderFilterOptions()
               }
             </ul>
           }
           <ul className='side-bar-other-filters'>TIPO
             {
-              chooseSideBarFilterOptions()
+              displaySideBarFilterOptions()
             }
           </ul>
         </section>

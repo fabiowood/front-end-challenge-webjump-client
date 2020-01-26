@@ -4,8 +4,8 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 15%;
-  height: 520px;
-  border: 1.1px solid rgb(214, 200, 200);
+  height: 500px;
+  border: 0.5px solid rgb(214, 200, 200);
   color: RGB(0, 139, 139);
   font-size: 16px;
   font-weight: 700;
@@ -26,7 +26,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-start;
-    height: 35%;
+    height: 34%;
 
     .category-option {
       font-size: 12px;
@@ -59,25 +59,45 @@
   .side-bar-colors {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: flex-start;
-    height: 35%; 
-
-    .color-option {
-      font-size: 12px;
-      font-weight: normal;
-      margin: 4px 0 0 15px;
-      color: grey;
-      cursor: pointer;
-
-      &:hover{
-        color: RGB(0, 139, 139);
-        font-weight: 600;
-        font-size: 11px;
+    height: 27%; 
+    
+    .color-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 40%;
+      
+      .color-option {
+        font-weight: 500;
+        margin: 10px 0 0 0;
+        color: grey;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        margin-right: 5px;
+        
+        &.orange-block {
+          background-color: RGB(255, 140, 0);
+          color: transparent;
+          width: 33%;
+        }
+  
+        &.pink-block {
+          background-color: RGB(255, 182, 193);
+          color: transparent;
+          width: 33%;
+        }
+  
+        &.dark-block {
+          background-color: RGB(105, 105, 105);
+          color: transparent;
+          width: 34%;
+        }
       }
-
     }
-
   }
 
   .side-bar-gender {
@@ -85,7 +105,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-start;
-    height: 35%;  
+    height: 27%;  
 
     .gender-option {
       font-size: 12px;
@@ -109,7 +129,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-start;
-    height: 30%;
+    height: 34%;
 
     .filter-option {
       font-size: 12px;

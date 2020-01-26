@@ -1,8 +1,9 @@
 import React from "react";
-// import { addItem } from '../../redux/cart/cart.actions';
+import { connect } from 'react-redux';
+import { addItem } from '../../redux/cart/cart.actions';
 import "./collection-item.styles.scss";
 
-const CollectionItem = ({ item, collectionItemsDisplay }) => {
+const CollectionItem = ({ item, addItem, collectionItemsDisplay }) => {
   
   const { name, image, price, specialPrice } = item;
 
@@ -24,10 +25,14 @@ const CollectionItem = ({ item, collectionItemsDisplay }) => {
             <p className='price'>R${price.toFixed(2)}</p> 
           }
         </div>
-        <button className='custom-button' /* hoverAddToCart onClick={() => addItem(item)} */>COMPRAR</button>
+        <button className='custom-button' onClick={() => addItem(item)}>COMPRAR</button>
     </article>
   );
 };
 
-export default CollectionItem;
+const mapDispatchToProps = dispatch => ({
+  addItem: (item) => dispatch(addItem(item))
+});
+
+export default connect(null, mapDispatchToProps)(CollectionItem);
 
