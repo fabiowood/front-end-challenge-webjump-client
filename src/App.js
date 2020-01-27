@@ -405,7 +405,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' render={() => <CollectionPage selectedCollection={selectedCollection} searchBoxResults={searchBoxResults} displaySearchResults={displaySearchResults} multiFilterResults={multiFilterResults} displayMultiFilterResults={displayMultiFilterResults} collectionItemsDisplay={collectionItemsDisplay}/>}/>
           <Route path='/sign-in' component={SignUpSignInPage}/>
-          <Route path='/checkout' render={() => !currentUser ? <Redirect to='/sign-in' /> : <CheckOutPage /> }/>
+          <Route path='/checkout' render={() => !currentUser ? <Redirect to='/' /> : <CheckOutPage /> }/>
         </Switch>
 
         <Footer />
