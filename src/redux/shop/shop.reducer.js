@@ -6,6 +6,7 @@ import { fetchCollectionNames } from './shop.utilities';
 const INITIAL_STATE = {
   collectionNames: [],
   collections: [],
+  isOutsideShopPage: false
 }
 
 const shopReducer = (currentState = INITIAL_STATE, action) => {
@@ -14,6 +15,11 @@ const shopReducer = (currentState = INITIAL_STATE, action) => {
       return {
         ...currentState,
         collectionNames: fetchCollectionNames()
+      }
+    case shopActionTypes.CHECK_SHOP_PAGE:
+      return {
+        ...currentState,
+        isOutsideShopPage: action.payload
       }
     default:
       return currentState;

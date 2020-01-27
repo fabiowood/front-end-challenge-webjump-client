@@ -3,8 +3,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import { fetchCollectionNames } from './redux/shop/shop.actions';
 import './App.css';
 
 // Component Dependencies
@@ -42,7 +40,7 @@ class App extends Component {
       displayMultiFilterResults: false,
       filterItemsByColor: false,
       filterItemsByGender: false,
-      collectionItemsDisplay: 'grid'
+      collectionItemsDisplay: 'grid',
     }
   }
 
@@ -259,7 +257,6 @@ class App extends Component {
         break;
       }
     }
-    
   multiFilterResults.items = multiFilterResultsArray;
   this.setState({
       multiFilterResults: multiFilterResults,
@@ -268,9 +265,7 @@ class App extends Component {
     })
   }
 
-  searchCollectionItems = (searchBoxResults, searchField, searchCollectionName, filterByColor, filterByGender) => {
-    console.log(searchBoxResults);
-    console.log(searchField);
+  searchCollectionItems = (searchBoxResults, searchCollectionName, filterByColor, filterByGender) => {
       this.setState({
         searchBoxResults: searchBoxResults,
         displaySearchResults: true,
@@ -371,14 +366,14 @@ class App extends Component {
     const { collectionNames, selectedCollection, searchBoxResults, displaySearchResults, filterItemsByColor, filterItemsByGender, selectedCollectionName, multiFilterResults, displayMultiFilterResults, collectionItemsDisplay, allCollections } = this.state;
     return (
       <section>
-        <SignUpSignInDisplay />
+        <SignUpSignInDisplay/>
 
         <SearchBox searchCollectionItems={this.searchCollectionItems} allCollections={allCollections}/>
 
         <Header collectionNames={collectionNames} fetchSingleCollection={this.fetchSingleCollection}/>
 
         <NavigationPath selectedCollectionName={selectedCollectionName}/>
-
+          
         <SideBarFilter fetchSingleCollection={this.fetchSingleCollection} filterItemsByColor={filterItemsByColor} filterItemsByGender={filterItemsByGender} selectColor={this.fetchCollectionItemsByColor} selectGender={this.fetchCollectionItemsByGender} selectTypeOption={this.fetchCollectionItemsByTypeOption} selectedCollectionName={selectedCollectionName}/>
 
         <SortBox sortCollectionItems={this.sortCollectionItems} changeCollectionItemsDisplay={this.changeCollectionItemsDisplay}/>
@@ -394,9 +389,5 @@ class App extends Component {
     );
   }
 }
-
-// const mapDispatchToProps = dispatch => ({
-//   fetchCollectionNames: () => dispatch(fetchCollectionNames())
-// });
 
 export default App;

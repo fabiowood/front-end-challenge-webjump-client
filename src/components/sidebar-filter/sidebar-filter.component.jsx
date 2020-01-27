@@ -1,6 +1,9 @@
 /* eslint-disable default-case */
 import React, { Component, Fragment } from 'react';
 import './sidebar-filter.styles.scss';
+import { connect } from 'react-redux';
+import {createStructuredSelector} from 'reselect';
+import { CheckShopPage } from '../../redux/shop/shop.selectors';
 
 class SideBarFilter extends Component {
   constructor(props) {
@@ -96,47 +99,57 @@ class SideBarFilter extends Component {
 
   render() {
 
-    const { filterItemsByColor, filterItemsByGender} = this.props;
+    const { filterItemsByColor, filterItemsByGender, isOutsideShopPage} = this.props;
     const { displayCollectionFilterOptions, displaySideBarFilterOptions, displayColorFilterOptions, displayGenderFilterOptions } = this.state;
-
-    return(
-      <Fragment>
-        <section className='side-bar'>
-          <h2 className='side-bar-title'>FILTRE POR</h2>
-          <ul className='side-bar-categories'>CATEGORIAS
-            {
-              displayCollectionFilterOptions()
-            }
-          </ul>
-
-          {
-            filterItemsByColor && 
-            <ul className='side-bar-colors'>CORES
-              <div className='color-container'>
-                {
-                  displayColorFilterOptions()
-                }
-              </div>
-            </ul>
-          }
-
-          {
-            filterItemsByGender && 
-            <ul className='side-bar-gender'>GÊNERO
+    if (isOutsideShopPage === true) {
+      return (
+      null
+      )
+    } else {
+      return(
+        <Fragment>
+          <section className='side-bar'>
+            <h2 className='side-bar-title'>FILTRE POR</h2>
+            <ul className='side-bar-categories'>CATEGORIAS
               {
-                displayGenderFilterOptions()
+                displayCollectionFilterOptions()
               }
             </ul>
-          }
-          <ul className='side-bar-other-filters'>TIPO
+  
             {
-              displaySideBarFilterOptions()
+              filterItemsByColor && 
+              <ul className='side-bar-colors'>CORES
+                <div className='color-container'>
+                  {
+                    displayColorFilterOptions()
+                  }
+                </div>
+              </ul>
             }
-          </ul>
-        </section>
-      </Fragment>
-    )
+  
+            {
+              filterItemsByGender && 
+              <ul className='side-bar-gender'>GÊNERO
+                {
+                  displayGenderFilterOptions()
+                }
+              </ul>
+            }
+            <ul className='side-bar-other-filters'>TIPO
+              {
+                displaySideBarFilterOptions()
+              }
+            </ul>
+          </section>
+        </Fragment>
+      )
+    }
   }
  }
 
-export default SideBarFilter;
+const mapStateToProps = createStructuredSelector ({
+  isOutsideShopPage: CheckShopPage
+})
+
+export default connect(mapStateToProps)(SideBarFilter);
+

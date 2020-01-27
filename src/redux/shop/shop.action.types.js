@@ -2,4 +2,6 @@
 
 export const shopActionTypes = {
   FETCH_COLLECTION_NAMES: 'FETCH_COLLECTION_NAMES',
+  CHECK_SHOP_PAGE: 'CHECK_SHOP_PAGE'
 }
+

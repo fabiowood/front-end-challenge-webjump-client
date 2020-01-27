@@ -15,19 +15,19 @@ const CheckOutPage = ({ cartItems, cartTotalValue }) => {
     <section className='checkout-page'>
       <header className='checkout-header'>
         <div className='header-block'>
-          <span>Product</span>
+          <span>Produto</span>
         </div>
         <div className='header-block'>
-          <span>Description</span>
+          <span>Descrição</span>
         </div>
         <div className='header-block'>
-          <span>Quantity</span>
+          <span>Quantidade</span>
         </div>
         <div className='header-block'>
-          <span>Price</span>
+          <span>Preço</span>
         </div>
         <div className='header-block'>
-          <span>Remove</span>
+          <span>Remover</span>
         </div>
       </header>
       <div>
@@ -35,11 +35,11 @@ const CheckOutPage = ({ cartItems, cartTotalValue }) => {
         cartItems.map(cartItem => <CheckOutItem key={cartItem.id} cartItem={cartItem} />)
         }
       </div>
-      <div className='total'>TOTAL: ${cartTotalValue}</div>
+      <div className='total'>TOTAL: R$ {cartTotalValue.toFixed(2)}</div>
       <div className='test-warning'>
-        *Please use the following test credit card for payments*
+        *Por gentileza, utilize o cartão de crédito a seguir, para efetuar testes de pagamentos*
         <br />
-        4242 4242 4242 4242 - Exp: 01/20 - CVV: 123
+        4242 4242 4242 4242 - Exp: 12/20 - CVV: 123
       </div>
       <StripeCheckoutButton price= {cartTotalValue} />
     </section>

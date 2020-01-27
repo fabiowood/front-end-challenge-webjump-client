@@ -14,15 +14,9 @@
   .sort-buttons-container {
     width: 10%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-around;
     align-items: center;
-
-    .sort-button {
-      margin-right: 15%;
-      border: none;
-      cursor: pointer;
-    }
-
+    cursor: pointer;
   }
 
   .form-container {

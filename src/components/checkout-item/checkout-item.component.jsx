@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ReactComponent as RemoveButton } from '../../assets/delete-24px.svg';
 import './checkout-item.styles.scss';
 
 // Component Dependencies
@@ -13,7 +14,7 @@ const CheckOutItem = ({cartItem, addItem, removeItem, removeQuantityFromItem}) =
   return (
     <article className='checkout-item'>
       <picture className='image-container'>
-        <img src={image} alt='item in your checkout ready to buy'/>
+        <img src={image} alt='item em seu carrinho pronto para as compras!'/>
       </picture>
       <div className='name'>{name}</div>
       <div className='quantity'>
@@ -21,8 +22,8 @@ const CheckOutItem = ({cartItem, addItem, removeItem, removeQuantityFromItem}) =
           <span className='value'>{quantity}</span>
         <div className='arrow' onClick={() => addItem(cartItem)}>&#10095;</div>
       </div>
-      <div className='price'>${price}</div>
-      <div className='remove-button' onClick={() => removeItem(cartItem)}>&#10005;</div>
+      <div className='price'>R$ {price.toFixed(2)}</div>
+      <RemoveButton className='remove-button' onClick={() => removeItem(cartItem)}></RemoveButton>
     </article>
   )
 }

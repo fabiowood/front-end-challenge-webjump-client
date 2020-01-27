@@ -6,3 +6,8 @@ export const selectCollectionNames = createSelector(
   [selectCollections],
   shop => shop.collectionNames
 );
+
+export const CheckShopPage = createSelector(
+  [selectCollections],
+  shop => shop.isOutsideShopPage
+)
