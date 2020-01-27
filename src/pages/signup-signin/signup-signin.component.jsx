@@ -9,7 +9,6 @@ import SignUp from '../../components/sign-up/sign-up.component';
 const SignUpSignInPage = () => {
   return (
     <section className='sign-up-sign-in'>
-      <p>SignUpSignInPage!</p>
       <SignIn />
       <SignUp />
     </section>

@@ -12,7 +12,7 @@ import './cart-dropdown.styles.scss';
 import CustomButton from '../custom-button/custom-button.component';
 import CartItem from '../cart-item/cart.item.component';
 
-const CartDropdown = ({cartItems, history, dispatch}) => {
+const CartDropdown = ({currentUser, cartItems, history, dispatch}) => {
   return (
     <section className='cart-dropdown'>
       <div className='cart-items'>
@@ -24,14 +24,26 @@ const CartDropdown = ({cartItems, history, dispatch}) => {
           <span className='empty-message'>Seu carrinho está vazio!</span>
         }
       </div>
-      <CustomButton onClick={() => {
-        history.push('/checkout');
-        dispatch(setCartDropdownDisplay());
-        dispatch(isOutsideShopPage(true));
-        }
-       }
-      >
-      Checkout</CustomButton>
+      {
+        currentUser ?
+          <CustomButton onClick={() => {
+            history.push('/checkout');
+            dispatch(setCartDropdownDisplay());
+            dispatch(isOutsideShopPage(true));
+            }
+          }
+          >
+          Checkout</CustomButton>
+        :
+        <CustomButton onClick={() => {
+            history.push('/sign-in');
+            dispatch(setCartDropdownDisplay());
+            dispatch(isOutsideShopPage(true));
+            }
+          }
+          >
+          Checkout</CustomButton>
+      }
     </section>
   )
 }

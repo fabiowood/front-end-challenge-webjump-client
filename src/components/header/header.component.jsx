@@ -12,7 +12,7 @@ import './header.styles.scss';
 import CartIcon from '../cart-icon/cart-icon.component.jsx';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
-const Header = ({ collectionNames, fetchSingleCollection, hiddenDropdown, history, dispatch }) => {
+const Header = ({ currentUser, collectionNames, fetchSingleCollection, hiddenDropdown, history, dispatch }) => {
   return (
     <section>
       <header className='header'>
@@ -38,7 +38,7 @@ const Header = ({ collectionNames, fetchSingleCollection, hiddenDropdown, histor
           hiddenDropdown ?
           null 
           :
-          <CartDropdown/>
+          <CartDropdown currentUser={currentUser}/>
           }
       </header>
     </section>

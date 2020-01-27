@@ -2,7 +2,8 @@
 /* eslint-disable default-case */
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { auth, createUserProfileDocument } from './firebase/firebase.utilities';
 import './App.css';
 
 // Component Dependencies
@@ -40,6 +41,7 @@ class App extends Component {
       filterItemsByColor: false,
       filterItemsByGender: false,
       collectionItemsDisplay: 'grid',
+      currentUser: null
     }
   }
 
@@ -355,21 +357,44 @@ class App extends Component {
     })
   }
 
+  unsubscribeFromAuth = null;
+
   componentDidMount() {
     this.fetchCollectionNames();
     this.fetchCollections();
     this.displayInitialCollection();
+    this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
+      if(userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        userRef.onSnapshot(snapshot => {
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data()
+            }
+          }, () => console.log(this.state))
+        })
+      } else {
+        this.setState({
+          currentUser: userAuth
+        }, () => console.log(this.state))
+      }
+    })
+  }
+
+  componentWillUnmount () {
+    this.unsubscribeFromAuth();
   }
 
   render() {
-    const { collectionNames, selectedCollection, searchBoxResults, displaySearchResults, filterItemsByColor, filterItemsByGender, selectedCollectionName, multiFilterResults, displayMultiFilterResults, collectionItemsDisplay, allCollections } = this.state;
+    const { collectionNames, selectedCollection, searchBoxResults, displaySearchResults, filterItemsByColor, filterItemsByGender, selectedCollectionName, multiFilterResults, displayMultiFilterResults, collectionItemsDisplay, allCollections, currentUser } = this.state;
     return (
       <section>
-        <SignUpSignInDisplay/>
+        <SignUpSignInDisplay currentUser={currentUser}/>
 
         <SearchBox searchCollectionItems={this.searchCollectionItems} allCollections={allCollections}/>
 
-        <Header collectionNames={collectionNames} fetchSingleCollection={this.fetchSingleCollection}/>
+        <Header collectionNames={collectionNames} fetchSingleCollection={this.fetchSingleCollection} currentUser={currentUser}/>
 
         <NavigationPath selectedCollectionName={selectedCollectionName}/>
           
@@ -380,7 +405,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' render={() => <CollectionPage selectedCollection={selectedCollection} searchBoxResults={searchBoxResults} displaySearchResults={displaySearchResults} multiFilterResults={multiFilterResults} displayMultiFilterResults={displayMultiFilterResults} collectionItemsDisplay={collectionItemsDisplay}/>}/>
           <Route path='/sign-in' component={SignUpSignInPage}/>
-          <Route path='/checkout' component={CheckOutPage} />
+          <Route path='/checkout' render={() => !currentUser ? <Redirect to='/sign-in' /> : <CheckOutPage /> }/>
         </Switch>
 
         <Footer />
