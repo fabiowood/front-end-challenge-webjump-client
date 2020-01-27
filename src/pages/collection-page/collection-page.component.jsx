@@ -4,6 +4,7 @@ import './collection-page.styles.scss';
 // Component Dependencies
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
+import SearchErrorMessage from '../../components/search-error-message/search-error-message.component';
 
 const CollectionPage = ({ selectedCollection, searchBoxResults, displaySearchResults, multiFilterResults, displayMultiFilterResults, collectionItemsDisplay }) => {
 
@@ -52,7 +53,8 @@ const CollectionPage = ({ selectedCollection, searchBoxResults, displaySearchRes
   findMultiFilterCollectionItems();
 
   return (
-    <section className='collection-page'>
+   <section className='collection-page'>
+     <div className='collection-display'>
       {
         displaySearchResults ?
 
@@ -67,12 +69,7 @@ const CollectionPage = ({ selectedCollection, searchBoxResults, displaySearchRes
             </div>
           </Fragment>
           :
-          <Fragment>
-            <h2 className='title'>Resultados da sua Busca:</h2>
-            <div className='no-items-found-message'>
-                  Não foram encontrados resultados para a sua busca. Por favor, tente novamente!
-            </div>
-          </Fragment>
+          <SearchErrorMessage />
 
         :
 
@@ -89,12 +86,7 @@ const CollectionPage = ({ selectedCollection, searchBoxResults, displaySearchRes
             </div>
           </Fragment>
           :
-          <Fragment>
-            <h2 className='title'>Resultados da sua Busca:</h2>
-            <div className='no-items-found-message'>
-                  Não foram encontrados resultados para a sua busca. Por favor, tente novamente!
-            </div>
-          </Fragment>
+          <SearchErrorMessage />
 
         :
 
@@ -109,14 +101,10 @@ const CollectionPage = ({ selectedCollection, searchBoxResults, displaySearchRes
             </div>
           </Fragment>
         :
-          <Fragment>
-            <h2 className='title'>Resultados da sua Busca:</h2>
-            <div className='no-items-found-message'>
-                  Não foram encontrados resultados para a sua busca. Por favor, tente novamente!
-            </div>
-          </Fragment>
+          <SearchErrorMessage />
       }   
-    </section>
+     </div>
+  </section>
   )
 }
 

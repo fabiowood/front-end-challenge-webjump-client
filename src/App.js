@@ -7,15 +7,14 @@ import './App.css';
 
 // Component Dependencies
 
-// import HomePage from './pages/home-page/home-page.component';
 import SignUpSignInDisplay from './components/signup-signin-display/signup-signin-display.component';
 import SearchBox from './components/search-box/search-box.component';
 import Header from './components/header/header.component';
 import SignUpSignInPage from './pages/signup-signin/signup-signin.component';
 import NavigationPath from './components/navigation-path/navigation-path.component';
-import ShopPage from './pages/shop-page/shop-page.component';
 import SideBarFilter from './components/sidebar-filter/sidebar-filter.component';
 import SortBox from './components/sort-box/sort-box.component';
+import CollectionPage from './pages/collection-page/collection-page.component';
 import CheckOutPage from './pages/checkout-page/checkout-page.component';
 import Footer from './components/footer/footer.component';
 
@@ -379,7 +378,7 @@ class App extends Component {
         <SortBox sortCollectionItems={this.sortCollectionItems} changeCollectionItemsDisplay={this.changeCollectionItemsDisplay}/>
 
         <Switch>
-          <Route exact path='/' render={() => <ShopPage selectedCollection={selectedCollection} searchBoxResults={searchBoxResults} displaySearchResults={displaySearchResults} multiFilterResults={multiFilterResults} displayMultiFilterResults={displayMultiFilterResults} collectionItemsDisplay={collectionItemsDisplay}/>}/>
+          <Route exact path='/' render={() => <CollectionPage selectedCollection={selectedCollection} searchBoxResults={searchBoxResults} displaySearchResults={displaySearchResults} multiFilterResults={multiFilterResults} displayMultiFilterResults={displayMultiFilterResults} collectionItemsDisplay={collectionItemsDisplay}/>}/>
           <Route path='/sign-in' component={SignUpSignInPage}/>
           <Route path='/checkout' component={CheckOutPage} />
         </Switch>

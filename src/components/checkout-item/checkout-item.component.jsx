@@ -35,5 +35,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(null, mapDispatchToProps)(CheckOutItem);
-
-// The hexadecimals used correspond to wingding icons. More about it: https://www.w3schools.com/charsets/ref_utf_dingbats.asp

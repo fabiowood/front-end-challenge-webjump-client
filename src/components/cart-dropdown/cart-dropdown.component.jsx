@@ -5,7 +5,6 @@ import {createStructuredSelector} from 'reselect';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { setCartDropdownDisplay } from '../../redux/cart/cart.actions';
 import { isOutsideShopPage } from '../../redux/shop/shop.actions';
-
 import './cart-dropdown.styles.scss';
 
 // Component Dependencies

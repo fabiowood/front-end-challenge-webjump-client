@@ -8,7 +8,7 @@ import './cart-icon.styles.scss';
 
 const CartIcon = ({setCartDropdownDisplay}) => {
   return (
-    <section className='cart-icon' onClick={setCartDropdownDisplay}>
+    <section className='cart-icon' onClick={() => setCartDropdownDisplay()}>
       <MaterialIcon icon='shopping_cart' color='white'></MaterialIcon>
     </section>
   )

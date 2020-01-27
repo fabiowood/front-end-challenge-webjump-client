@@ -101,6 +101,7 @@ class SideBarFilter extends Component {
 
     const { filterItemsByColor, filterItemsByGender, isOutsideShopPage} = this.props;
     const { displayCollectionFilterOptions, displaySideBarFilterOptions, displayColorFilterOptions, displayGenderFilterOptions } = this.state;
+    
     if (isOutsideShopPage === true) {
       return (
       null

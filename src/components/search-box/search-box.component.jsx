@@ -65,7 +65,7 @@ render() {
   return (
     <section className='container'>
       <picture className='picture-container'>
-        <img src={logo} alt={'logo'} className='logo-container'/>
+        <img src={logo} alt='logo' className='logo-container'/>
       </picture>
       <form className='form-container' onSubmit={this.handleSubmit} onClick={() => (isOutsideShopPage(false))}>
         <input type='search' placeholder='Encontre o seu produto' className='search-box' value={this.state.searchField} onChange={this.handleChange}></input>
