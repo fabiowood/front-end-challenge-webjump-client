@@ -1,3 +1,10 @@
+O acesso à aplicação em si deve ser efetuado por meio do repositório a seguir, o qual contém a versão consolidada do último Build do desenvolvimento front-end, permitindo as chamadas aos end-points estalecidos pela Webjump:
+https://bitbucket.org/fabiowood/assessment-frontend-webjump/src/desafio/
+
+O esclarecimento é necessário, pois o código neste repositório do git-hub passou por um processo de Build, sendo que o resultado final foi transportado ao arquivo de 'back-end' da Webjump. Dessa forma, é possível acessar os end-points, por meio do localhost:8888.
+
+=======================================================================================================================
+
 Front-End Challenge Webjump – Documentação de Suporte:
 
 1) Escopo da Aplicação
@@ -44,9 +51,9 @@ Obs: a mesma fonte foi mantida para o menu e para o botão de pesquisa, ao contr
 
 (v) Para os produtos que estejam em promoção, são apresentados o preço original riscado e, à direita desse valor, o preço praticado naquele momento da promoção.
 
-- Permite adicionar items a um carrinho de compras e se direcionar para a 	CheckOutPage, na qual se pode visualizar, adicionar ou remover itens, bem como 	visualizar dinamicamente o total a pagar.
+- Permite adicionar items a um carrinho de compras e se direcionar para a CheckOutPage, na qual se pode visualizar, adicionar ou remover itens, bem como 	visualizar dinamicamente o total a pagar.
 
-- Permite a manutenção dos itens no carrinho de compras, mesmo em caso de atualização da página, de fechamento da aba ou mesmo de fechamento do 	browser por completo.
+- Permite a manutenção dos itens no carrinho de compras, mesmo em caso de atualização da página, de fechamento da aba ou mesmo de fechamento do browser por completo.
 
 - Permite a experiência de simulação de um pagamento por cartão de crédito fictício.
 
