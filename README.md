@@ -1,4 +1,4 @@
-O acesso à aplicação em si deve ser efetuado por meio do repositório a seguir, o qual contém a versão consolidada do último Build do desenvolvimento front-end, permitindo as chamadas aos end-points estalecidos pela Webjump:
+O acesso à aplicação em si deve ser efetuado por meio do repositório a seguir, o qual contém a versão consolidada do último Build do desenvolvimento front-end, permitindo as chamadas aos end-points estabelecidos pela Webjump:
 https://bitbucket.org/fabiowood/assessment-frontend-webjump/src/desafio/
 
 O esclarecimento é necessário, pois o código neste repositório do git-hub passou por um processo de Build, sendo que o resultado final foi transportado ao arquivo de 'back-end' da Webjump. Dessa forma, é possível acessar os end-points, por meio do localhost:8888.
